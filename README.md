@@ -3,7 +3,7 @@
 
 К проекту приложена схема, которая описывает взаимодействие модулей и UseCases
 
-UI: XML
+UI: Compose
 Архитектура: SOLID, Clean architecture, MVVM
 DI: Dagger 2
 Асинхронное исполнение: Coroutines
