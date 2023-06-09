@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.foodmarketapp.ui.home.HomeFragment"
+        android:name="com.example.foodmarketapp.home.ui.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_bag"
-        android:name="com.example.foodmarketapp.ui.bag.BagFragment"
+        android:name="com.example.foodmarketapp.bag.ui.BagFragment"
         android:label="Bag"
         tools:layout="@layout/fragment_bag" />
 
     <fragment
         android:id="@+id/navigation_account"
-        android:name="com.example.foodmarketapp.ui.account.AccountFragment"
+        android:name="com.example.foodmarketapp.account.ui.AccountFragment"
         android:label="Bag"
         tools:layout="@layout/fragment_account" />
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.foodmarketapp.ui.search.SearchFragment"
+        android:name="com.example.foodmarketapp.search.ui.SearchFragment"
         android:label="Bag"
         tools:layout="@layout/fragment_search" />
 </navigation>
