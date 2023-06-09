@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">FoodMarketApp</string>
+    <string name="main_nav_title">Главная</string>
+    <string name="basket_nav_title">Корзина</string>
+    <string name="search_nav_title">Поиск</string>
+    <string name="account_nav_title">Аккаунт</string>
+    <string name="fragment_search_label">Поиск</string>
+    <string name="fragment_account_label">Профиль</string>
 </resources>
