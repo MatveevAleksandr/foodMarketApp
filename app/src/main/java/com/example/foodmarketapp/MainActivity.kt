@@ -15,5 +15,6 @@ class MainActivity : AppCompatActivity() {
         val bottomNavController =
             Navigation.findNavController(activity = this, viewId = R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(bottomNavView, bottomNavController)
+        supportActionBar?.hide()
     }
 }
