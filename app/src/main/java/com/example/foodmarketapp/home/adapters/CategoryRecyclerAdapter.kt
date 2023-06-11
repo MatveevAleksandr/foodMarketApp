@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.model.CategoryModel
+import com.example.domain.model.CategoryModel
 import com.example.foodmarketapp.R
 
 class CategoryRecyclerAdapter(val categoryList: List<CategoryModel>): RecyclerView.Adapter<CategoryRecyclerAdapter.CategoryViewHolder>() {

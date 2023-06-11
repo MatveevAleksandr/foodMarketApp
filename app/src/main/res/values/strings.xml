@@ -6,7 +6,7 @@
     <string name="account_nav_title">Аккаунт</string>
     <string name="fragment_search_label">Поиск</string>
     <string name="fragment_account_label">Профиль</string>
-    <string name="location_str">Санкт-Петербург</string>
+    <string name="location_str">Москва</string>
     <string name="location_date">12 Августа, 2023</string>
     <string name="category_item">category_item</string>
     <string name="category_name">some category</string>

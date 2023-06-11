@@ -5,21 +5,30 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.data.category.repository.CategoryRepositoryImpl
+import com.example.data.category.storage.CategoryAPIStorageImpl
 import com.example.domain.usecases.CategoryCardClickUseCase
+import com.example.domain.usecases.GetCategoryListUseCase
 import com.example.foodmarketapp.R
 import com.example.foodmarketapp.home.adapters.CategoryRecyclerAdapter
 import com.example.foodmarketapp.home.viewmodel.HomeViewModel
 import com.example.foodmarketapp.home.viewmodel.HomeViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeFragment : Fragment() {
 
+    private val categoryAPIStorage = CategoryAPIStorageImpl()
+    private val categoryRepository = CategoryRepositoryImpl(categoryStorage = categoryAPIStorage)
     private val viewModel by viewModels<HomeViewModel> {
         HomeViewModelFactory(
-            CategoryCardClickUseCase()
+            categoryCardClickUseCase = CategoryCardClickUseCase(),
+            getCategoryListUseCase = GetCategoryListUseCase(categoryRepository = categoryRepository)
         )
     }
 
@@ -31,8 +40,13 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.categoryRecyclerView)
         categoryRecyclerView.layoutManager = LinearLayoutManager(activity)
         categoryRecyclerView.adapter = CategoryRecyclerAdapter(viewModel.getCategoryList())
+
+        val sdf = SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault())
+        view.findViewById<TextView>(R.id.current_date_time_textview).text =
+            sdf.format(Calendar.getInstance().time)
     }
 }
