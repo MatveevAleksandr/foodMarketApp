@@ -1,7 +1,7 @@
 package com.example.data.category.storage
 
-import com.example.domain.model.CategoryModel
+import com.example.domain.model.CategoryStorageAnswerModel
 
 interface CategoryStorage {
-    fun loadCategoryList(): List<CategoryModel>
+    fun loadCategoryList(): CategoryStorageAnswerModel
 }

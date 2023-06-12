@@ -1,7 +1,7 @@
 package com.example.domain.repository
 
-import com.example.domain.model.CategoryModel
+import com.example.domain.model.CategoryStorageAnswerModel
 
 interface CategoryRepository {
-    fun loadCategoryList(): List<CategoryModel>
+    fun loadCategoryList(): CategoryStorageAnswerModel
 }

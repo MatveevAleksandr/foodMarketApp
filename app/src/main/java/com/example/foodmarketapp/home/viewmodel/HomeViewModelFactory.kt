@@ -12,7 +12,6 @@ class HomeViewModelFactory(
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        Log.d("AAA_AAA", "HomeViewModelFactory")
         return HomeViewModel(
             getCategoryListUseCase = getCategoryListUseCase,
             categoryCardClickUseCase = categoryCardClickUseCase
