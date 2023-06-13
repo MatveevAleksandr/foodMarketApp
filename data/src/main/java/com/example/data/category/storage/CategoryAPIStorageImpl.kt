@@ -1,11 +1,9 @@
 package com.example.data.category.storage
 
-import android.util.Log
-import com.example.data.category.model.CategoryAPIStorageModel
 import com.example.data.category.model.CategoryListAPIStorageModel
-import com.example.domain.model.CategoryStorageAnswerModel
 import com.example.data.category.retrofit.CategoryRetrofit
 import com.example.domain.model.CategoryModel
+import com.example.domain.model.CategoryStorageAnswerModel
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,7 +17,6 @@ class CategoryAPIStorageImpl : CategoryStorage {
             Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
                 .build().create<CategoryRetrofit>()
         val listCall = retrofit.getList().execute()
-        Log.d("AAA_AAA",listCall.toString())
         return convertAPIModelToStorageAnswerModel(apiCall = listCall)
     }
 

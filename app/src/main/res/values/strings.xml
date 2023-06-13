@@ -10,4 +10,6 @@
     <string name="location_date">12 Августа, 2023</string>
     <string name="category_item">category_item</string>
     <string name="category_name">some category</string>
+    <string name="dish_category_title">Some category</string>
+    <string name="dish_type_name">some dish type</string>
 </resources>

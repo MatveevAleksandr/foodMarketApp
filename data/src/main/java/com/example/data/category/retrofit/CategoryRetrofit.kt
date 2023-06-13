@@ -1,7 +1,6 @@
 package com.example.data.category.retrofit
 
 
-import com.example.data.category.model.CategoryAPIStorageModel
 import com.example.data.category.model.CategoryListAPIStorageModel
 import retrofit2.Call
 import retrofit2.http.GET

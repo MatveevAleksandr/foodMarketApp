@@ -4,16 +4,17 @@ package com.example.foodmarketapp.home.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.domain.usecases.CategoryCardClickUseCase
 import com.example.domain.usecases.GetCategoryListUseCase
 import com.example.foodmarketapp.home.ui.HomeFragmentState
 import com.example.foodmarketapp.home.ui.HomeFragmentStateErrorLoad
 import com.example.foodmarketapp.home.ui.HomeFragmentStateSuccessfulLoad
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(
-    private val getCategoryListUseCase: GetCategoryListUseCase,
-    private val categoryCardClickUseCase: CategoryCardClickUseCase
+    private val getCategoryListUseCase: GetCategoryListUseCase
 ) : ViewModel() {
 
     private var homeFragmentState = MutableLiveData<HomeFragmentState>()

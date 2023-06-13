@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.category.repository.CategoryRepositoryImpl
 import com.example.data.category.storage.CategoryAPIStorageImpl
-import com.example.domain.usecases.CategoryCardClickUseCase
 import com.example.domain.usecases.GetCategoryListUseCase
 import com.example.foodmarketapp.R
 import com.example.foodmarketapp.home.adapters.CategoryRecyclerAdapter
@@ -29,7 +28,6 @@ class HomeFragment : Fragment() {
     private val categoryRepository = CategoryRepositoryImpl(categoryStorage = categoryAPIStorage)
     private val viewModel by viewModels<HomeViewModel> {
         HomeViewModelFactory(
-            categoryCardClickUseCase = CategoryCardClickUseCase(),
             getCategoryListUseCase = GetCategoryListUseCase(categoryRepository = categoryRepository)
         )
     }

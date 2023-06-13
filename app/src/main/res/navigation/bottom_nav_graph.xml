@@ -20,12 +20,18 @@
     <fragment
         android:id="@+id/navigation_account"
         android:name="com.example.foodmarketapp.account.ui.AccountFragment"
-        android:label="Bag"
+        android:label="Account"
         tools:layout="@layout/fragment_account" />
 
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.example.foodmarketapp.search.ui.SearchFragment"
-        android:label="Bag"
+        android:label="Search"
         tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/navigation_dish"
+        android:name="com.example.foodmarketapp.dish.ui.DishFragment"
+        android:label="Dish"
+        tools:layout="@layout/fragment_dish" />
 </navigation>
