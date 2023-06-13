@@ -13,4 +13,8 @@
     <string name="dish_category_title">Some category</string>
     <string name="dish_type_name">some dish type</string>
     <string name="dish_name">Some Dish</string>
+    <string name="dish_detail_name">Some dish name</string>
+    <string name="dish_detail_price">Some price</string>
+    <string name="dish_detail_weight">· Some weight</string>
+    <string name="dish_detail_description">Some description</string>
 </resources>
