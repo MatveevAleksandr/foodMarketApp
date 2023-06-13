@@ -12,4 +12,5 @@
     <string name="category_name">some category</string>
     <string name="dish_category_title">Some category</string>
     <string name="dish_type_name">some dish type</string>
+    <string name="dish_name">Some Dish</string>
 </resources>

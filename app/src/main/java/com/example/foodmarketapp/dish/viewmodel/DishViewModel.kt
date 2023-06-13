@@ -3,6 +3,7 @@ package com.example.foodmarketapp.dish.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.domain.model.DishModel
 import com.example.domain.usecases.GetDishListByCategoryIDUseCase
 import com.example.domain.usecases.GetDishListByTagUseCase
 import com.example.foodmarketapp.dish.ui.DishFragmentState
@@ -36,7 +37,10 @@ class DishViewModel(
                     val state = if (result.isError) {
                         DishFragmentStateErrorLoad(errorMsg = result.errorMsg)
                     } else {
-                        DishFragmentStateSuccessfulLoad(dishList = result.dishList!!)
+                        DishFragmentStateSuccessfulLoad(
+                            dishList = result.dishList!!,
+                            dishTypesList = getDishTypes(result.dishList!!)
+                        )
                     }
                     setDishFragmentState(state)
                 }
@@ -52,11 +56,31 @@ class DishViewModel(
                     val state = if (result.isError) {
                         DishFragmentStateErrorLoad(errorMsg = result.errorMsg)
                     } else {
-                        DishFragmentStateSuccessfulLoad(dishList = result.dishList!!)
+                        val prevDishTypeList = when (val state = getDishFragmentState().value) {
+                            is DishFragmentStateSuccessfulLoad -> {
+                                state.dishTypesList
+                            }
+                            else -> {
+                                null
+                            }
+                        }
+                        DishFragmentStateSuccessfulLoad(
+                            dishList = result.dishList!!, prevDishTypeList!!
+                        )
                     }
                     setDishFragmentState(state)
                 }
             }
         }
+    }
+
+    private fun getDishTypes(dishList: List<DishModel>): List<String> {
+        val result = mutableSetOf<String>()
+        dishList.forEach { dishModel ->
+            dishModel.tags.forEach {
+                result.add(it)
+            }
+        }
+        return result.toList()
     }
 }

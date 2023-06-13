@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/bottom_nav_graph"
+        app:navGraph="@navigation/main_nav_graph"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"

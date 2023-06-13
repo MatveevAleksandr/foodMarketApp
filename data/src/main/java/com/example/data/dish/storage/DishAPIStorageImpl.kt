@@ -23,7 +23,7 @@ class DishAPIStorageImpl : DishStorage {
     private fun convertAPIModelToStorageAnswerModel(apiCall: Response<DishListAPIStorageModel>): DishStorageAnswerModel {
         val isError = apiCall.code() != 200
         val errorMsg = if (isError) apiCall.errorBody().toString() else ""
-        val dishList = if (isError) listOf() else apiCall.body()?.dishList?.map {
+        val dishList = if (isError) mutableListOf() else apiCall.body()?.dishList?.map {
             DishModel(
                 id = it.id,
                 name = it.name,

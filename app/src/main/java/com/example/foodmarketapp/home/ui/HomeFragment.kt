@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.category.repository.CategoryRepositoryImpl
@@ -47,7 +48,8 @@ class HomeFragment : Fragment() {
         viewModel.getHomeFragmentState().observe(this) {
             when (it) {
                 is HomeFragmentStateSuccessfulLoad -> {
-                    categoryRecyclerView.adapter = CategoryRecyclerAdapter(it.categoryList)
+                    val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+                    categoryRecyclerView.adapter = CategoryRecyclerAdapter(it.categoryList, navController)
                 }
                 is HomeFragmentStateErrorLoad -> {
                     Toast.makeText(

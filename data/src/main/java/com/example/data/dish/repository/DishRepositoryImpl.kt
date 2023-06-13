@@ -1,6 +1,7 @@
 package com.example.data.dish.repository
 
 import com.example.data.dish.storage.DishStorage
+import com.example.domain.model.DishModel
 import com.example.domain.model.DishStorageAnswerModel
 import com.example.domain.repository.DishRepository
 
@@ -11,6 +12,16 @@ class DishRepositoryImpl(private val dishStorage: DishStorage) : DishRepository 
     }
 
     override fun loadDishListByTag(categoryID: Int, tag: String): DishStorageAnswerModel {
-        return dishStorage.loadDishList()
+        val storageResult = dishStorage.loadDishList()
+        if (!storageResult.isError && !storageResult.dishList.isNullOrEmpty()) {
+            val filteredDishList = mutableListOf<DishModel>()
+            storageResult.dishList!!.forEach {
+                if (it.tags.contains(tag)) {
+                    filteredDishList.add(it)
+                }
+            }
+            storageResult.dishList = filteredDishList
+        }
+        return storageResult
     }
 }
