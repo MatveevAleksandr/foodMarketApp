@@ -36,7 +36,7 @@ class BagFragment : Fragment() {
         val btnPay: Button = view.findViewById(R.id.btnPay)
         bagRecycler.layoutManager = LinearLayoutManager(activity)
         viewModel.getBagItemListData().observe(this) { list ->
-            if (list == null) {
+            if (list.isNullOrEmpty()) {
                 bagRecycler.adapter = null
                 btnPay.isEnabled = false
             } else {
@@ -49,9 +49,9 @@ class BagFragment : Fragment() {
                         viewModel.minusItem(it)
                     }
                 })
-                btnPay.text = "Оплатить ${viewModel.getSumPrice()} ₽"
                 btnPay.isEnabled = true
             }
+            btnPay.text = "Оплатить ${viewModel.getSumPrice()} ₽"
         }
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
