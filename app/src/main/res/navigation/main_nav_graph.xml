@@ -9,7 +9,8 @@
         android:id="@+id/navigation_home"
         android:name="com.example.foodmarketapp.home.ui.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_bag"
@@ -33,5 +34,13 @@
         android:id="@+id/navigation_dish"
         android:name="com.example.foodmarketapp.dish.ui.DishFragment"
         android:label="Dish"
-        tools:layout="@layout/fragment_dish" />
+        tools:layout="@layout/fragment_dish" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dish_detail"
+        android:name="com.example.foodmarketapp.dish.ui.DishItemDetail"
+        android:label="Dish_detail"
+        tools:layout="@layout/dish_item_detail" >
+    </fragment>
 </navigation>

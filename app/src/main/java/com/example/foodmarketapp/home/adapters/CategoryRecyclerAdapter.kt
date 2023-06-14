@@ -42,6 +42,7 @@ class CategoryRecyclerAdapter(
             val bundle = Bundle()
             bundle.putInt(CATEGORY_ID_BUNDLE, categoryList[position].id)
             bundle.putString(CATEGORY_NAME_BUNDLE, categoryList[position].name)
+            navController.popBackStack(R.id.navigation_home, true);
             navController.navigate(R.id.navigation_dish, bundle)
         }
     }

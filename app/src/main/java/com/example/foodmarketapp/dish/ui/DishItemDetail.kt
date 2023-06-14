@@ -43,9 +43,11 @@ class DishItemDetail(private val dishItem: DishModel, private val addClick: (Dis
         }
         addBtn.setOnClickListener {
             addClick(dishItem)
+            val nav = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
             dismiss()
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-                .navigate(R.id.navigation_bag)
+            nav.popBackStack(R.id.navigation_home, true);
+            nav.navigate(R.id.navigation_bag)
+
         }
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

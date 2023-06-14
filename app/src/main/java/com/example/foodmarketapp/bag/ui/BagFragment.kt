@@ -6,24 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.bag.repository.BagRepositoryImpl
-import com.example.data.bag.storage.BagRoomStorageImpl
-import com.example.domain.usecases.LoadAllBagUseCase
-import com.example.domain.usecases.MinusItemInBagUseCase
-import com.example.domain.usecases.PlusItemInBagUseCase
 import com.example.foodmarketapp.R
 import com.example.foodmarketapp.app.App
 import com.example.foodmarketapp.bag.adapters.BagRecyclerAdapter
 import com.example.foodmarketapp.bag.viewmodel.BagViewModel
 import com.example.foodmarketapp.bag.viewmodel.BagViewModelFactory
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class BagFragment : Fragment() {
-
+    @Inject
+    lateinit var viewModelFactory: BagViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,16 +29,9 @@ class BagFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val storage =
-            BagRoomStorageImpl((requireActivity().application as App).getDataBase().bagDao())
-        val repository = BagRepositoryImpl(storage = storage)
-        val viewModel by viewModels<BagViewModel> {
-            BagViewModelFactory(
-                minusItemInBagUseCase = MinusItemInBagUseCase(repo = repository),
-                plusItemInBagUseCase = PlusItemInBagUseCase(repo = repository),
-                loadAllBagUseCase = LoadAllBagUseCase(repo = repository)
-            )
-        }
+        (activity?.applicationContext as App).appComponent.injectBagFragment(this)
+        val viewModel = ViewModelProvider(this, viewModelFactory)[BagViewModel::class.java]
+
         val bagRecycler = view.findViewById<RecyclerView>(R.id.bagRecyclerView)
         val btnPay: Button = view.findViewById(R.id.btnPay)
         bagRecycler.layoutManager = LinearLayoutManager(activity)
