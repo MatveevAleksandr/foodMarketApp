@@ -1,7 +1,8 @@
-package com.example.data.dish.storage
+package com.example.data.dish.storage.retrofit
 
 import com.example.data.dish.model.DishListAPIStorageModel
-import com.example.data.dish.retrofit.DishRetrofit
+import com.example.data.dish.storage.DishStorage
+import com.example.data.dish.storage.retrofit.DishRetrofit
 import com.example.domain.model.DishModel
 import com.example.domain.model.DishStorageAnswerModel
 import retrofit2.Response

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.domain.model.DishModel
 import com.example.domain.usecases.GetDishListByCategoryIDUseCase
 import com.example.domain.usecases.GetDishListByTagUseCase
+import com.example.domain.usecases.PlusItemInBagUseCase
 import com.example.foodmarketapp.dish.ui.DishFragmentState
 import com.example.foodmarketapp.dish.ui.DishFragmentStateErrorLoad
 import com.example.foodmarketapp.dish.ui.DishFragmentStateSuccessfulLoad
@@ -16,7 +17,8 @@ import kotlinx.coroutines.withContext
 
 class DishViewModel(
     private val getDishListByCategoryIDUseCase: GetDishListByCategoryIDUseCase,
-    private val getDishListByTagUseCase: GetDishListByTagUseCase
+    private val getDishListByTagUseCase: GetDishListByTagUseCase,
+    private val plusItemInBagUseCase: PlusItemInBagUseCase
 ) : ViewModel() {
 
     private var dishFragmentState = MutableLiveData<DishFragmentState>()
@@ -70,6 +72,14 @@ class DishViewModel(
                     }
                     setDishFragmentState(state)
                 }
+            }
+        }
+    }
+
+    suspend fun addItemToBag(item: DishModel) {
+        coroutineScope {
+            launch(Dispatchers.IO) {
+                plusItemInBagUseCase.execute(item = item)
             }
         }
     }

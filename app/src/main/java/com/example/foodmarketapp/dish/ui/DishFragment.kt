@@ -14,11 +14,15 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.data.bag.repository.BagRepositoryImpl
+import com.example.data.bag.storage.BagRoomStorageImpl
 import com.example.data.dish.repository.DishRepositoryImpl
-import com.example.data.dish.storage.DishAPIStorageImpl
+import com.example.data.dish.storage.retrofit.DishAPIStorageImpl
 import com.example.domain.usecases.GetDishListByCategoryIDUseCase
 import com.example.domain.usecases.GetDishListByTagUseCase
+import com.example.domain.usecases.PlusItemInBagUseCase
 import com.example.foodmarketapp.R
+import com.example.foodmarketapp.app.App
 import com.example.foodmarketapp.dish.adapters.DishRecyclerAdapter
 import com.example.foodmarketapp.dish.adapters.DishTypeRecyclerAdapter
 import com.example.foodmarketapp.dish.viewmodel.DishViewModel
@@ -29,16 +33,6 @@ const val CATEGORY_ID_BUNDLE = "categoryID"
 const val CATEGORY_NAME_BUNDLE = "categoryName"
 
 class DishFragment : Fragment() {
-
-    private val dishAPIStorage = DishAPIStorageImpl()
-    private val dishRepository = DishRepositoryImpl(dishStorage = dishAPIStorage)
-    private val viewModel by viewModels<DishViewModel> {
-        DishViewModelFactory(
-            getDishListByCategoryIDUseCase = GetDishListByCategoryIDUseCase(dishRepository = dishRepository),
-            getDishListByTagUseCase = GetDishListByTagUseCase(dishRepository = dishRepository)
-        )
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -47,6 +41,21 @@ class DishFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val dishAPIStorage = DishAPIStorageImpl()
+        val dishRepository = DishRepositoryImpl(dishStorage = dishAPIStorage)
+        val bagStorage =
+            BagRoomStorageImpl((requireActivity().application as App).getDataBase().bagDao())
+        val bagRepository = BagRepositoryImpl(bagStorage)
+        val plusItemInBagUseCase = PlusItemInBagUseCase(repo = bagRepository)
+        val viewModel by viewModels<DishViewModel> {
+            DishViewModelFactory(
+                getDishListByCategoryIDUseCase = GetDishListByCategoryIDUseCase(dishRepository = dishRepository),
+                getDishListByTagUseCase = GetDishListByTagUseCase(dishRepository = dishRepository),
+                plusItemInBagUseCase = plusItemInBagUseCase
+            )
+        }
+
         val categoryID = arguments?.getInt(CATEGORY_ID_BUNDLE) ?: -1
         view.findViewById<TextView>(R.id.dish_category_title).text =
             arguments?.getString(CATEGORY_NAME_BUNDLE)
@@ -70,7 +79,11 @@ class DishFragment : Fragment() {
                                 viewModel.loadDishListByTag(categoryID, it)
                             }
                         })
-                    dishRecycler.adapter = DishRecyclerAdapter(state.dishList)
+                    dishRecycler.adapter = DishRecyclerAdapter(state.dishList, addClick = {
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            viewModel.addItemToBag(it)
+                        }
+                    })
                 }
                 is DishFragmentStateErrorLoad -> {
                     Toast.makeText(

@@ -1,4 +1,4 @@
-package com.example.data.dish.retrofit
+package com.example.data.dish.storage.retrofit
 
 import com.example.data.dish.model.DishListAPIStorageModel
 import retrofit2.Call

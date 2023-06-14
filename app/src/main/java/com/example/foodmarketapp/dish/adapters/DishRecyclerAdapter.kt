@@ -13,8 +13,9 @@ import com.example.foodmarketapp.R
 import com.example.foodmarketapp.dish.ui.DishItemDetail
 import com.squareup.picasso.Picasso
 
-class DishRecyclerAdapter(private val dishList: List<DishModel>) :
-    RecyclerView.Adapter<DishRecyclerAdapter.DishViewHolder>() {
+class DishRecyclerAdapter(
+    private val dishList: List<DishModel>, private val addClick: (DishModel) -> Unit
+) : RecyclerView.Adapter<DishRecyclerAdapter.DishViewHolder>() {
 
     class DishViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dishName: TextView = itemView.findViewById(R.id.dish_name)
@@ -32,7 +33,7 @@ class DishRecyclerAdapter(private val dishList: List<DishModel>) :
         holder.dishName.text = dishList[position].name
         Picasso.get().load(dishList[position].image_url).fit().into(holder.dishImage)
         holder.dishCard.setOnClickListener {
-            val dishDetail = DishItemDetail(dishList[position])
+            val dishDetail = DishItemDetail(dishList[position], addClick)
             dishDetail.show(
                 (holder.itemView.context as MainActivity).supportFragmentManager, "custom"
             )
