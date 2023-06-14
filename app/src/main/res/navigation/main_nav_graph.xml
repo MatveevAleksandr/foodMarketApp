@@ -36,11 +36,4 @@
         android:label="Dish"
         tools:layout="@layout/fragment_dish" >
     </fragment>
-
-    <fragment
-        android:id="@+id/navigation_dish_detail"
-        android:name="com.example.foodmarketapp.dish.ui.DishItemDetail"
-        android:label="Dish_detail"
-        tools:layout="@layout/dish_item_detail" >
-    </fragment>
 </navigation>

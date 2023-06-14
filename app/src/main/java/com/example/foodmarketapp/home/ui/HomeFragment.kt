@@ -37,7 +37,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity?.applicationContext as App).appComponent.injectHomeFragment(this)
         val viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
-
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.categoryRecyclerView)
         categoryRecyclerView.layoutManager = LinearLayoutManager(activity)
         viewModel.getHomeFragmentState().observe(this) {

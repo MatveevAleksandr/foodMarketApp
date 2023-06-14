@@ -39,14 +39,15 @@ class DishItemDetail(private val dishItem: DishModel, private val addClick: (Dis
         dishWeight.text = " · ${dishItem.weight}г"
         dishDescription.text = dishItem.description
         closeBtn.setOnClickListener {
-            dismiss()
+            dismissNow()
         }
         addBtn.setOnClickListener {
             addClick(dishItem)
             val nav = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-            nav.popBackStack(R.id.navigation_home, true);
+            dismissNow()
+            nav.popBackStack(R.id.navigation_home, true)
+//            nav.popBackStack()
             nav.navigate(R.id.navigation_bag)
-            dismiss()
         }
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodmarketapp.R
@@ -31,7 +32,6 @@ class BagFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         (activity?.applicationContext as App).appComponent.injectBagFragment(this)
         val viewModel = ViewModelProvider(this, viewModelFactory)[BagViewModel::class.java]
-
         val bagRecycler = view.findViewById<RecyclerView>(R.id.bagRecyclerView)
         val btnPay: Button = view.findViewById(R.id.btnPay)
         bagRecycler.layoutManager = LinearLayoutManager(activity)

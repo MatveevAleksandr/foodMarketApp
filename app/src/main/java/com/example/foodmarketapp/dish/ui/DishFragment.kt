@@ -40,12 +40,12 @@ class DishFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity?.applicationContext as App).appComponent.injectDishFragment(this)
         val viewModel = ViewModelProvider(this, viewModelFactory)[DishViewModel::class.java]
-
         val categoryID = arguments?.getInt(CATEGORY_ID_BUNDLE) ?: -1
         view.findViewById<TextView>(R.id.dish_category_title).text =
             arguments?.getString(CATEGORY_NAME_BUNDLE)
         view.findViewById<CardView>(R.id.backCardView).setOnClickListener {
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).popBackStack()
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+                .navigate(R.id.navigation_home)
         }
 
         val dishTypeRecycler = view.findViewById<RecyclerView>(R.id.dishTypeRecyclerView)
@@ -57,13 +57,13 @@ class DishFragment : Fragment() {
         viewModel.getDishFragmentState().observe(this) { state ->
             when (state) {
                 is DishFragmentStateSuccessfulLoad -> {
-                    dishTypeRecycler.adapter =
-                        DishTypeRecyclerAdapter(dishTypeList = state.dishTypesList,
-                            dishTypeCLick = {
-                                viewLifecycleOwner.lifecycleScope.launch {
-                                    viewModel.loadDishListByTag(categoryID, it)
-                                }
-                            })
+                    dishTypeRecycler.adapter = DishTypeRecyclerAdapter(
+                        dishTypeList = state.dishTypesList,
+                        dishTypeCLick = {
+                            viewLifecycleOwner.lifecycleScope.launch {
+                                viewModel.loadDishListByTag(categoryID, it)
+                            }
+                        })
                     dishRecycler.adapter = DishRecyclerAdapter(state.dishList, addClick = {
                         viewLifecycleOwner.lifecycleScope.launch {
                             viewModel.addItemToBag(it)
@@ -77,6 +77,9 @@ class DishFragment : Fragment() {
                 }
             }
         }
+
+        val nav = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+        nav.clearBackStack(R.id.navigation_home)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.loadDishListByCategoryID(categoryID = categoryID)
